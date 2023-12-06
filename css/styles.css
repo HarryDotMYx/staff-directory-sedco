@@ -1,0 +1,836 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+:root {
+--brand_leadColor: #581F65;
+--white: #ffffff;
+--black: #000000;
+--black_light: #3C4046;
+--gray: #f9f9f9;
+
+--mainColor: #24bd5f;
+--lightColor: #d4f6e1;
+--darkColor: #10552b;
+--background: #ffffff;
+--color: #212529;
+--theme-floating: var(--black);
+--theme-floating-text: #fff;
+--action-buttons-text: #000;
+--bs-font-sans-serif: 'Montserrat', sans-serif;
+--profileImageSize: 150px;
+--main-image-mobile-focus-point: 50% 50%;
+--main-image-desktop-focus-point: 50% 50%;
+}
+
+/* Set the font size base on user device */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body.background_clean {
+    background-image: url('../img/cs.png'); /* Replace 'your-image-url.jpg' with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  body.background_mainColor {
+    background-color: var(--mainColor);
+    color: var(--white);
+  }
+  
+  
+/* Desktop */
+@media (min-width: 1000px) {
+  body.background_clean {
+    background: url('../img/cs.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+
+
+
+
+
+
+/* offcanvas theme */
+body .offcanvas {
+background-color: var(--white);
+color: var(--black);
+}
+body.bg-color-dark .offcanvas {
+box-shadow: rgb(255 255 255 / 43%) 0px 0px 15px 0px;
+}
+.offcanvas .offcanvas-header {
+background-color: var(--mainColor);
+}
+.offcanvas .offcanvas-header h5 {
+margin-bottom: 0;
+color: #fff;
+}
+/* overwrite the default bootstrap icon with ours icon */
+.offcanvas .btn-close {
+opacity: 1;
+background: transparent url("https://static1.s123-cdn-static-a.com/ready_uploads/svg/times.svg?v=2") center / 1.2em auto no-repeat;
+}
+/* pc - make the offcanvas bigger */
+@media(min-width:768px) {
+.offcanvas-start {
+width: 550px;
+}
+}
+body > .container-fluid {
+margin-bottom: 85px;
+position: relative;
+}
+
+
+/* desktop */
+@media (min-width: 1000px) {
+.titlesBlock {
+padding: 0px;
+}
+}
+
+
+
+
+.profileImage .cover-image {
+position: relative;
+}
+.profileImage .cover-image .coverBox {
+position: relative;
+}
+.profileImage .cover-image #cE_mainImage {
+width:100%;
+height:auto;
+object-fit: cover;
+max-height: 350px;
+min-height: 120px;
+transition: object-position 0.3s linear;
+}
+.profileImage .faceBox {
+position: relative;
+width: 100%;
+display:flex;
+align-items: center;
+justify-content: center;
+}
+
+.profileImage .faceBox.border-white .face {
+border-color: var(--white);
+}
+.profileImage .faceBox.border-0 .face {
+border-width: 0;
+}
+.profileImage .faceBox.border-5 .face {
+border-width: 5px;
+}
+.profileImage .faceBox.border-10 .face {
+border-width: 10px;
+}
+
+
+
+.profileImage .faceBox.border-radius-no .face {
+border-radius: 0;
+}
+.profileImage .faceBox.border-radius-20 .face {
+border-radius: 20px;
+}
+.profileImage .faceBox.border-radius-full .face {
+border-radius: 100%;
+}
+
+
+
+
+
+.profileImage .faceBox .face {
+background-color: #fff;
+border: 3px solid var(--mainColor);
+padding: 0;
+object-fit: cover;
+border-radius: 100%;
+}
+.profileImage .faceBox .face {
+width: var(--profileImageSize);
+height: var(--profileImageSize);
+}
+.profileImage .faceBox.halfUp {
+margin-top: calc(var(--profileImageSize) / 2 * -1);
+}
+.profileImage .faceBox.largeProfile .face {
+width: calc(var(--profileImageSize) * 1.4);
+height: calc(var(--profileImageSize) * 1.4);
+}
+.profileImage .faceBox.largeProfile.halfUp {
+margin-top: calc(var(--profileImageSize) * 1.4 / 2 * -1);
+}
+.profileImage .faceBox.mediumProfile .face {
+width: calc(var(--profileImageSize) * 0.9);
+height: calc(var(--profileImageSize) * 0.9);
+}
+.profileImage .faceBox.mediumProfile.halfUp {
+margin-top: calc(var(--profileImageSize) * 0.9 / 2 * -1);
+}
+.profileImage .faceBox.smallProfile .face {
+width: calc(var(--profileImageSize) * 0.7);
+height: calc(var(--profileImageSize) * 0.7);
+}
+.profileImage .faceBox.smallProfile.halfUp {
+margin-top: calc(var(--profileImageSize) * 0.7 / 2 * -1);
+}
+/* Take care large height screen */
+@media (min-height: 801px) and (min-width: 501px) {
+:root {
+--profileImageSize: 200px;
+}
+}
+/* Watch */
+@media (max-height: 450px) and (max-width: 500px) {
+:root {
+--profileImageSize: 80px;
+}
+}
+
+
+
+/* logo */
+.cp-logo {
+background-color: #fff;
+padding: 10px;
+border-radius: 8px;
+box-shadow: 0px 0px 5px 2px #9c9c9c59;
+position: absolute;
+top: 15px;
+left: 15px;
+max-width: 150px;
+max-height: 50px;
+height: auto;
+z-index: 1;
+}
+html[dir="rtl"] .cp-logo {
+right: 15px;
+left: auto;
+}
+@media (min-width: 1000px) {
+.cp-logo {
+left: 20px;
+}
+html[dir="rtl"] .cp-logo {
+right: 20px;
+}
+}
+
+
+
+.shapeBottom {
+position: absolute;
+bottom: 0;
+left: 0;
+height: 24px;
+width: 100%;
+}
+.shapeBottom {
+fill: var(--background);
+}
+
+
+#shapeMe {
+fill: var(--mainColor);
+}
+
+#cE_title1 .h1 {
+font-size: 2.1rem;
+font-weight: bold;
+margin-bottom: 0.8rem;
+}
+#cE_title2 .h5 {
+font-size: 1rem;
+opacity: 0.6;
+margin: 0;
+}
+#cE_about p {
+font-size: 1.1rem;
+margin-bottom:0;
+}
+
+
+#cE_about {
+max-width: 500px;
+margin: auto;
+}
+
+#cE_title1, #cE_title2, #cE_about {
+animation: TextEnter 1s ease 0s 1 normal forwards;
+}
+
+
+
+
+@keyframes TextEnter {
+0% {
+opacity: 0;
+}
+
+100% {
+opacity: 1;
+}
+}
+
+
+.poweredBy {
+font-size: 12px;
+text-decoration: none;
+}
+body.background_clean .poweredBy {
+color: #00000045;
+}
+body.background_mainColor .poweredBy {
+color: #ffffff9c;
+}
+body.bg-color-dark .poweredBy {
+color: #ffffff9c;
+}
+
+
+
+/* Desktop */
+@media (min-width: 1000px) {
+body > .container-fluid {
+width: 800px;
+margin-top: 45px;
+margin-bottom: 45px;
+padding-bottom: 20px;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Desktop Container Style */
+@media (min-width: 1000px) {
+.shadowWithRadiusAll {
+border-radius: 30px 30px 15px 15px !important;
+border-width: 0 !important;
+box-shadow: 0px 2px 19px 2px #00000029 !important;
+}
+.shadowWithRadiusTop {
+border-radius: 15px 15px 0 0 !important;
+}
+}
+
+
+
+/* Svg Icons
+-----------------------*/
+.svg-m {
+display: inline-block;
+width: 1.2em;
+height: 1.2em;
+background-color: #fff;
+}
+/* edge 18 browser bug fix */
+@supports (-ms-ime-align: auto) {
+.svg-m {
+mask-repeat: space !important;
+mask-position: center !important;
+mask-size: contain !important;
+}
+}
+
+
+
+
+/* Desktop */
+@media (min-width: 1000px) {
+#share_window.offcanvas-top {
+margin: 30px auto;
+width: 600px;
+}
+}
+#share_window .qrcode-img-container,
+#share_window .save-contact-container {
+display: block;
+text-align: center;
+}
+.shareButton {
+gap: 5px;
+}
+
+
+
+
+
+/* Primary Button - Make sure that the primary buttons
+of the card page will also inherit the main color
+------------------------*/
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+background-color: #24bd5f;
+background-color: var(--mainColor);
+border-color: #24bd5f;
+border-color: var(--mainColor);
+}
+
+/* Banner
+-----------------*/
+#Banner {
+    background-color: rgba(255, 255, 255, 0.5); /* Adjust the last value (alpha) for transparency */
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  
+  #Banner a {
+    color: #000000;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+  }
+  
+  #Banner a1 {
+    font-size: 12px;
+  }
+  
+  /* Desktop */
+  @media (min-width: 1000px) {
+    #Banner {
+      position: fixed;
+      top: 0;
+      height: 43px;
+    }
+  }
+  
+
+
+/* Icons size
+------------*/
+.sharingPopup .icons .svg-m {
+width: 1em;
+height: 1em;
+}	#cardPages {
+max-width: 700px;
+margin: auto;
+animation: PagesEnter 1s ease 0s 1 normal forwards;
+}
+@keyframes PagesEnter {
+0% {
+opacity: 0;
+transform: translateY(50px);
+}
+
+100% {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+#page_free_content.offcanvas-top {
+height: 75vh;
+}
+
+
+
+.quickButtons .button {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-decoration: none;
+margin-bottom: 15px;
+cursor: pointer;
+}
+#page_free_content .quickButtons .button {
+margin-top: 15px;
+}
+.quickButtons .button:hover {
+opacity: 0.8;
+}
+.quickButtons .button .icon {
+width: 50px;
+height: 50px;
+background-color: var(--mainColor);
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.quickButtons.circle .button .icon {
+border-radius: 100%;
+}
+.quickButtons.square .button .icon {
+border-radius: 5px;
+}
+.quickButtons .button .title {
+color: var(--action-buttons-text);
+font-size: 0.85em;
+margin-top: 8px;
+display: -webkit-box;
+max-width: 100%;
+-webkit-line-clamp: 4;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+
+/* ################ Square buttons ################# */
+.quickButtons.borderSquare .button .icon {
+background-color: transparent;
+border: 1px solid var(--mainColor);
+box-shadow: none !important;
+}
+.quickButtons.borderSquare .button .icon .svg-m {
+background-color: var(--mainColor);
+}
+/* ################ Square buttons ################# */
+
+
+
+
+/* ################ circle buttons ################# */
+.quickButtons.borderCircle .button .icon {
+border-radius: 100%;
+background-color: transparent;
+border: 1px solid var(--mainColor);
+box-shadow: none !important;
+}
+.quickButtons.borderCircle .button .icon .svg-m {
+background-color: var(--mainColor);
+}
+/* ################ circle buttons ################# */
+
+
+
+
+/* ################ clean buttons ################# */
+.quickButtons.clean .button .icon {
+background-color: transparent;
+box-shadow: none !important;
+}
+.quickButtons.clean .button .icon .svg-m {
+background-color: var(--mainColor);
+width: 2em;
+height: 2em;
+}
+/* ################ clean buttons ################# */
+
+
+
+
+/* ################ clean white buttons ################# */
+.quickButtons.cleanWhite .button .icon {
+background-color: transparent;
+box-shadow: none !important;
+}
+.quickButtons.cleanWhite .button .icon .svg-m {
+background-color: #fff;
+width: 2em;
+height: 2em;
+}
+.quickButtons.cleanWhite .button .title {
+color: #fff;
+}
+/* ################ clean white buttons ################# */
+
+
+
+
+/* ################ clean black buttons ################# */
+.quickButtons.cleanBlack .button .icon {
+background-color: transparent;
+box-shadow: none !important;
+}
+.quickButtons.cleanBlack .button .icon .svg-m {
+background-color: #000;
+width: 2em;
+height: 2em;
+}
+.quickButtons.cleanBlack .button .title {
+color: #000;
+}
+/* ################ clean black buttons ################# */
+
+
+
+
+/* ################ clean main color buttons ################# */
+.quickButtons.cleanMainColor .button .icon {
+background-color: transparent;
+box-shadow: none !important;
+}
+.quickButtons.cleanMainColor .button .icon .svg-m {
+background-color: var(--mainColor);
+width: 2em;
+height: 2em;
+}
+.quickButtons.cleanMainColor .button .title {
+color: var(--mainColor);
+}
+/* ################ clean main color buttons ################# */
+
+
+
+/* ################ block buttons ################# */
+.quickButtons.block .button {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-decoration: none;
+margin-bottom: 15px;
+cursor: pointer;
+background-color: var(--white);
+margin: 4px;
+border-radius: 5px;
+padding: 5px;
+padding-top: 10px;
+}
+.quickButtons.block .button .icon {
+background-color: transparent;
+box-shadow: none !important;
+}
+.quickButtons.block .button .icon .svg-m {
+background-color: var(--mainColor);
+width: 2em;
+height: 2em;
+}
+.quickButtons.block .button .title {
+font-size: 0.7em !important;
+min-height: 40px;
+}
+.bg-color-dark .quickButtons.block .button {
+background-color: var(--black_light);
+}
+/* Force 3 buttons in a row in mobile - Desktop will be 4 */
+#cardPages.block {
+grid-template-columns: repeat(3, 1fr) !important;
+}
+/* ################ block buttons ################# */
+
+
+
+/* ################ block main color buttons ################# */
+/* note: need to have also the "block" class */
+.quickButtons.blockMainColor .button {
+background-color: var(--mainColor);
+}
+.bg-color-dark .quickButtons.blockMainColor .button {
+background-color: var(--mainColor);
+}
+.quickButtons.blockMainColor .button .icon .svg-m {
+background-color: #fff;
+}
+.quickButtons.blockMainColor .button .title {
+color: #fff;
+}
+/* ################ block buttons ################# */
+
+
+
+/* Desktop */
+@media (min-width: 1000px) {
+.quickButtons .button .icon {
+width: 75px;
+height: 75px;
+}
+.quickButtons .button .icon .svg-m {
+width: 1.5em;
+height: 1.5em;
+}
+.quickButtons .button .title {
+font-size: 0.85em;
+letter-spacing: 0.5px;
+}
+}
+
+/* Watch */
+@media (max-width: 380px) {
+
+}
+
+/* Pages Skeletons - This tool is preventing
+layout shifting until the js is loaded, we render simple skeletons
+in php and then replace them with js
+----------------------------------------*/
+@keyframes pageSkeletonLoading {  
+to {
+background-position: 315px 0, 0 0, 0 190px, 50px 195px;
+}
+}
+#cardPages .skeleton .icon,
+.floating-toolbar .skeleton .toolbar-button {
+border-color: #eeeeee !important;
+background: 
+linear-gradient(0.25turn, transparent, #fff, transparent),
+linear-gradient(#eee, #eee),
+radial-gradient(38px circle at 19px 19px, #eee 50%, transparent 51%),
+linear-gradient(#eee, #eee);
+background-repeat: no-repeat;
+animation: pageSkeletonLoading 1.5s infinite;
+}
+/* 8 & more buttons design- 4 buttons in line */
+.quickButtons {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+}
+/* 1 button - full row */
+.quickButtons[data-amout="1"] {
+grid-template-columns: 1fr;
+}
+/* 2 button - 2 buttons in row */
+.quickButtons[data-amout="2"] {
+grid-template-columns: repeat(3, 1fr);
+}
+/* 3 button - 3 buttons in row */
+.quickButtons[data-amout="3"] {
+grid-template-columns: repeat(3, 1fr);
+}
+/* 4 button - 4 buttons in row */
+.quickButtons[data-amout="4"] {
+grid-template-columns: repeat(4, 1fr);
+}
+/* 5 button - 3 in first row and 2 in last row */
+.quickButtons[data-amout="5"] {
+grid-template-columns: repeat(3, 1fr);
+}
+/* 6 button - 3 in first row and 3 in last row */
+.quickButtons[data-amout="6"] {
+grid-template-columns: repeat(3, 1fr);
+}
+/* 7 button - 4 in first row and 3 in last row */
+.quickButtons[data-amout="7"] {
+grid-template-columns: repeat(4, 1fr);
+}
+
+
+/* 3 in row buttons - make them larger
+-------------*/
+.quickButtons:is([data-amout="3"],[data-amout="5"],[data-amout="6"]) .button {
+font-size: 20px;
+}
+.quickButtons:is([data-amout="3"],[data-amout="5"],[data-amout="6"]) .icon {
+width: 60px;
+height: 60px;
+}
+.quickButtons:is([data-amout="3"],[data-amout="5"],[data-amout="6"]) .title {
+font-size: 0.7em;
+}
+
+
+
+/* Floating Tool Bar Pages Layout 1
+---------------------*/
+.floating-toolbar.layout1 {
+position: fixed;
+bottom: 0;
+width: 50%;
+z-index: 1;
+}
+.floating-toolbar.layout1 > div {
+background-color: transparent;
+border-radius: 20px;
+}
+.floating-toolbar.layout1 .main-buttons:not([data-amout="1"]) > :first-child {
+border-right: 1px solid var(--background);
+}
+html[dir="rtl"] .floating-toolbar.layout1 .main-buttons:not([data-amout="1"]) > :first-child {
+border-right: 0;
+border-left: 1px solid var(--background);
+}
+.floating-toolbar.layout1 .main-buttons:not([data-amout="1"]) > :last-child {
+border-left: 1px solid var(--background);
+}
+html[dir="rtl"] .floating-toolbar.layout1 .main-buttons:not([data-amout="1"]) > :last-child {
+border-right: 1px solid var(--background);
+border-left: 0;
+}
+.floating-toolbar.layout1 .toolbar-button {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+padding: 14px 5px;
+cursor: pointer;
+text-decoration: none;
+}
+.floating-toolbar.layout1 .toolbar-button:hover {
+opacity: 0.8;
+}
+/* wide width */
+@media (min-width: 700px) {
+.floating-toolbar.layout1 .toolbar-button {
+padding: 14px 15px;
+}
+}
+.floating-toolbar.layout1 #saveButton {
+text-decoration: none;
+}
+.floating-toolbar.layout1 .toolbar-button .icon {
+color: var(--theme-floating-text);
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 0 10px;
+}
+.floating-toolbar.layout1 .toolbar-button .icon i {
+font-size: 19px;
+background-color: var(--theme-floating-text);
+}
+.floating-toolbar.layout1 .toolbar-button .title {
+color: var(--theme-floating-text);
+font-size: 15px;
+font-weight: 600;
+white-space: nowrap;
+text-overflow: ellipsis;
+max-width: 100%;
+overflow: hidden;
+padding-right: 10px;
+}
+html[dir="rtl"] .floating-toolbar.layout1 .toolbar-button .title {
+padding-right: 0;
+padding-left: 10px;
+}
+/* wide width */
+@media (min-width: 700px) {
+.floating-toolbar.layout1 {
+width: auto;
+position: fixed;
+left: 20px;
+bottom: 20px;
+padding: 0;
+}
+.floating-toolbar.layout1 .row {
+flex-wrap: nowrap;
+}
+.floating-toolbar.layout1 .row > div {
+flex-shrink: 1;flex-shrink: 1;
+width: 100%;
+margin: 0;
+padding: 0;
+}
+.floating-toolbar.layout1 .toolbar-button .title {
+overflow: visible;
+white-space: nowrap;
+}
+}
+/* Watch */
+@media (max-width: 380px) {
+.floating-toolbar.layout1 .toolbar-button .title {
+display: none;
+}
+}
+

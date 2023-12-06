@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>Buat apa sini?</h1></center>
+<hr><center>MIS Server engine</center>
+</body>
+</html>
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
