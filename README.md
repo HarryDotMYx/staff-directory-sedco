@@ -1,7 +1,10 @@
 # Staff Directory QR-Code First in SEDCO!
 - Selamat datang ke Directory QR-CODE yang pertama di SEDCO!
 - Kali ni pihak MIS x SEDCO membuat sesuatu yang kelainan.
-- Untuk pengetahuan anda, QR-Code ini akan <b>MUNGKIN</b>
+- Untuk pengetahuan anda, QR-Code ini akan <b>MUNGKIN</b> akan selalu di update setiap sama ada HARI , MINGGU , BULAN , TAHUN!. hahaha
+- Untuk website ini , front end yang perlu digunakan adalah totally index.php sahaja. ;)
+
+
 
 # Apa benda yang dipakai untuk website ini?
  
