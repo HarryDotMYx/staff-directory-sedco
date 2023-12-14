@@ -27,6 +27,16 @@ $sql = "SELECT * FROM users WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userID);
 $stmt->execute();
+// Error handling for database connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Error handling for SQL execution
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
@@ -39,7 +49,7 @@ if ($result->num_rows > 0) {
     $department = cleanInput($row['department']);
     $phone = cleanInput($row['phone']);
     $email = cleanInput($row['email']);
-
+    $imageUrl = cleanInput($row['imageUrl']);
     // ... Other variables
 
     // Close the prepared statement
@@ -49,8 +59,8 @@ if ($result->num_rows > 0) {
 } else {
     // If the user ID does not exist
     echo <<<HTML
-    <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
+    
+
   <title>SEDCO Staff ID - Home Page </title>
   <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +110,7 @@ if ($result->num_rows > 0) {
    }
   </style>
 </head>
-<body>
+
 <br><br><br><br><br><br><br><br><br><br><br>
   <div class="container">
     <div class="band">QR-Code Undetected.</div>
@@ -184,46 +194,41 @@ HTML;
                         </div>
                         <div class="text-center">
                             <a id="de761b227d6a9" class="button " href="https://wa.me/<?php echo $phone; ?>" data-type="whatsapp">
-                                <img src=./img//whatsapp.png style="width:60px;height:auto" >
+                                <img src=./img/whatsapp.png style="width:60px;height:auto" >
                                 <div class="title">WhatsApp</div>
                             </a>
                         </div>
                         <div class="text-center">
                             <a id="de761b227d6a9" class="button " href="mailto:<?php echo $email; ?>" data-type="email">
-                                <img src=./img//mail.png style="width:60px;height:auto" >
+                                <img src=./img/mail.png style="width:60px;height:auto" >
                                 <div class="title">E-mail</div>
                             </a>
                         </div>
                         <div class="text-center">
                             <a id="de761b227d6a9" class="button " href="tel:+6088266777" data-type="officephone">
-                                <img src=./img//officephone.png style="width:60px;height:auto" >
+                                <img src=./img/officephone.png style="width:60px;height:auto" >
                                 <div class="title">Office Phone</div>
                             </a>
                         </div>
                         <div class="text-center">
                             <a id="de761b227d6a9" class="button " href="https://www.sedco.com.my/v2" data-type="website">
-                                <img src=./img//web.png style="width:60px;height:auto" >
+                                <img src=./img/web.png style="width:60px;height:auto" >
                                 <div class="title">Website<br>SEDCO</div>
                             </a>
                         </div>
                         <div class="text-center">
                             <a id="de761b227d6a9" class="button " href="https://www.facebook.com/SEDCOsabah" data-type="phone">
-                                <img src=./img//facebook.png style="width:60px;height:auto" >
+                                <img src=./img/facebook.png style="width:60px;height:auto" >
                                 <div class="title">Facebook <br>SEDCO </div>
                             </a>
                         </div>
                         <div class="text-center">
                             <a id="de761b227d6a9" class="button " href="https://ul.waze.com/ul?place=ChIJAU_xBpVpOzIRXwNcHDpnmEI&ll=5.97392040%2C116.06770880&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" data-type="location">
-                                <img src=./img//location1.png style="width:60px;height:auto" >
+                                <img src=./img/location1.png style="width:60px;height:auto" >
                                 <div class="title">SEDCO<br>Location</div>
                             </a>
                         </div>
-                        <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="https://www.youtube.com/channel/UCgACDXgv04uBrvXqSg2Emxw" data-type="youtube">
-                                <img src=./img//youtube.png style="width:60px;height:auto" >
-                                <div class="title">Youtube<br>SEDCO</div>
-                            </a>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -231,7 +236,7 @@ HTML;
                 </div>
             </div>
             <div class="col-12 text-center">
-                <p style="color: black;">&copy; <?php echo $year; ?> Perbadanan Pembangunan Ekonomi Sabah (SEDCO)</p>
+                <p style="color: black;">&copy;  Perbadanan Pembangunan Ekonomi Sabah ( SEDCO ) <?php echo date("Y"); ?></p>
             </div>
         </div>
     </div>
