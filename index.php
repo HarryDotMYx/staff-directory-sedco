@@ -211,7 +211,7 @@ HTML;
                             </a>
                         </div>
                         <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="https://www.sedco.com.my/v2" data-type="website">
+                            <a id="de761b227d6a9" class="button " href="https://www.sedco.com.my/" data-type="website">
                                 <img src=./img/web.png style="width:60px;height:auto" >
                                 <div class="title">Website<br>SEDCO</div>
                             </a>
