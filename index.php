@@ -1,7 +1,7 @@
 <?php
 // This script has been updated to PHP Vanilla
 // Any problem will make the backup on
-// https://github.com/HarryDotMYx/intranet-sedco-system
+// https://github.com/HarryDotMYx/staff-directory-sedco/
 // Thank you :))
 
 require_once './assets/header.php';
