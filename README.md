@@ -2,7 +2,7 @@
 - Selamat datang dengan penuh BANGGA ke Directory QR-CODE yang pertama di SEDCO!
 - Pada kali ini, kami di pihak MIS SEDCO dengan penuh semangat dan inovasi telah berjaya menghasilkan sesuatu yang sungguh luar biasa dan penuh keunikan.
 - Untuk menambahkan pengetahuan anda, QR-Code yang telah kami cipta ini kemungkinan besar akan sentiasa dikemas kini, tanpa mengira sama ada pada setiap hari yang cerah, minggu yang penuh cabaran, bulan yang penuh inspirasi, atau tahun yang bakal datang! Hahaha
-- Kami juga ingin menekankan bahawa bagi laman web ini, satu-satunya front end yang perlu anda gunakan adalah eksklusif index.php sahaja. Dengan ini, kami berharap anda akan lebih - - mudah mengakses dan memanfaatkan segala maklumat yang kami sediakan. Terima kasih kerana menyokong SEDCO!
+- Kami juga ingin menekankan bahawa bagi laman web ini, satu-satunya front end yang perlu anda gunakan adalah eksklusif index.php sahaja. Dengan ini, kami berharap anda akan lebih mudah mengakses dan memanfaatkan segala maklumat yang kami sediakan. Terima kasih kerana menyokong SEDCO!
 
 
 
