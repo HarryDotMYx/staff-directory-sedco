@@ -1,6 +1,9 @@
 <?php
 // This script has been updated to PHP Vanilla
 // Any problem will make the backup on
+// This code will change to Tailwind for PR Usage ;)
+// and this code will upgrade
+// and this code also will not use in idk when.
 // https://github.com/HarryDotMYx/staff-directory-sedco/
 // Thank you :))
 
@@ -153,7 +156,7 @@ HTML;
     </style>
     
     <div id="Banner" class="w-100 p-2 d-flex align-items-center justify-content-center">
-        <a rel="nofollow" class="poweredBy" href="https://www.sedco.com.my/" target="_blank">Perbadanan Pembangunan Ekonomi Sabah</a>
+        <a rel="nofollow" class="poweredBy" href="https://www.sedco.com.my/" target="_blank"> Powered By Perbadanan Pembangunan Ekonomi Sabah x MIS Team</a>
     </div>
     
     <div class="layoutContainer shadowWithRadiusAll container-fluid g-0 profileImage">

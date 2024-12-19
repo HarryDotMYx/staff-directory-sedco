@@ -1,8 +1,8 @@
 
 <?php
 $servername = "localhost"; //Localhost from SQL
-$username = "root"; // Use getenv() to retrieve environment variables
-$password = "crapDotaggwp1X####"; // Use getenv() to retrieve environment variables
+$username = "staff"; // Use getenv() to retrieve environment variables
+$password = "Kucing2024X"; // Use getenv() to retrieve environment variables
 $dbname = "staff";
 
 // Create a connection using PDO with prepared statements
