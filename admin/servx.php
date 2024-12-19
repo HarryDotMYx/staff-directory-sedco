@@ -27,4 +27,4 @@ echo "<p>" . $alienMessages[array_rand($alienMessages)] . "</p>";
 echo "<p>Encrypted message: " . generateAlienMessage() . "</p>";
 echo "<p>Signal strength: " . rand(1, 100) . "%</p>";
 echo "</div>";
-?>
+
