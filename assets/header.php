@@ -6,26 +6,21 @@
   ____) | |____| |__| | |___| |__| |
  |_____/|______|_____/ \_____\____/ 
                                     
- Congratulations ! You found the hidden commands!
- Github?
- https://github.com/harrydotmyx
+Congratulations! You've discovered the hidden commands!
+GitHub: https://github.com/harrydotmyx
 
-  
-  Create by PG MOHD AZHAN FIKRI :)
+Created by: PG Mohd Azhan Fikri :)
+Powered by: HarryDotMY, with Siti Shazwanie Nurain & Muhammad Hafizzuddin - You all rock!
 
-  Powered By: HarryDotMY with Siti Shazwanie Nurain , Muhammad Hafizzuddin. You are the ROCK!
+Hello there! You're viewing the source code.
+We're hiring! Interested? Send your resume to: pg.azhan@sedco.com.my
 
-
- 
-  Hello, Theree! You are viewing the source code,
-  We are hiring! Please send your resume to: harry@akierry.io
 
 
 -->
 <!DOCTYPE html>
 <html lang="en">
   
-<link rel="stylesheet" href="https://cdn-cms-s.f-static.net/versions/2/css/minimize_cardPage_main.css?v=r82146" type="text/css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="shortcut icon" href="./assets/favicon.ico">

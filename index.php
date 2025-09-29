@@ -1,246 +1,183 @@
 <?php
-// This script has been updated to PHP Vanilla
-// Any problem will make the backup on
-// This code will change to Tailwind for PR Usage ;)
-// and this code will upgrade
-// and this code also will not use in idk when.
-// https://github.com/HarryDotMYx/staff-directory-sedco/
-// Thank you :))
+declare(strict_types=1);
 
-require_once './assets/header.php';
-// Include database configuration file
+// Initialize session and error reporting
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', '0');
+
+// Load configuration and utilities
 require_once './assets/db_config.php';
+require_once './assets/header.php';
 
-// Function to sanitize and validate data
-function cleanInput($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+// User data handling class
+class UserProfile {
+    private ?array $userData = null;
+    private mysqli $db;
+
+    public function __construct(mysqli $db) {
+        $this->db = $db;
+    }
+
+    public function loadUser(int $userId): bool {
+        if ($userId <= 0) {
+            return false;
+        }
+
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
+        if (!$stmt) {
+            throw new Exception("Failed to prepare statement: " . $this->db->error);
+        }
+
+        $stmt->bind_param("i", $userId);
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to execute query: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        $this->userData = $result->fetch_assoc();
+        $stmt->close();
+        
+        return $this->userData !== null;
+    }
+
+    public function getUserData(): ?array {
+        return $this->userData;
+    }
+
+    public function getValue(string $key): string {
+        return htmlspecialchars($this->userData[$key] ?? '', ENT_QUOTES, 'UTF-8');
+    }
 }
 
-// Get user ID from the URL
-$userID = (isset($_GET['user'])) ? $_GET['user'] : 0; // Set a default value if no user ID is provided
+// Get user ID from URL with validation
+$userId = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT) ?? 0;
 
-// Sanitize user input
-$userID = cleanInput($userID);
+try {
+    // Create database connection using existing mysqli connection from db_config.php
+    $profile = new UserProfile($conn);
+    $userFound = $profile->loadUser($userId);
+    $userData = $profile->getUserData();
 
-// Use prepared statements to prevent SQL injection
-$sql = "SELECT * FROM users WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $userID);
-$stmt->execute();
-// Error handling for database connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Error handling for SQL execution
-if (!$stmt->execute()) {
-    die("Execute failed: " . $stmt->error);
-}
-
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    // If user information is found
-    $row = $result->fetch_assoc();
-
-    // Assign values from the database to variables
-    $fullName = cleanInput($row['full_name']);
-    $jobTitle = cleanInput($row['job_title']);
-    $department = cleanInput($row['department']);
-    $phone = cleanInput($row['phone']);
-    $email = cleanInput($row['email']);
-    $imageUrl = cleanInput($row['imageUrl']);
-    // ... Other variables
-
-    // Close the prepared statement
-    $stmt->close();
-    // Close the database connection
-    $conn->close();
-} else {
-    // If the user ID does not exist
-    echo <<<HTML
-    
-
-  <title>SEDCO Staff ID - Home Page </title>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style type="text/css">
-    body {
-     font-family: Arial, Helvetica, Verdana, Sans-Serif;
-     font-size: small;
-     font-weight: normal;
-     color: #000000;
-   }
-   div {
-     margin-left: auto;
-     margin-right: auto;
-     text-align: center;
-   }
-   .box {
-     width: 601px;
-     background-color: #F2F2F2;
-     border-left: solid 1px #C2C2C2;
-     border-right: solid 1px #C2C2C2;
-    vertical-align: middle;
-    padding: 20px 10px 20px 10px;
-  }
-  p {
-    text-align: left;
-  }
-  .red {
-    font-weight: bold;
-    color: Red;
-    text-align: center;
-  }
-  .band {
-    height: 20px;
-    color: White;
-    background: #333333;
-    width: 600px;
-    border-left: solid 1px #333333;
-     border-right: solid 1px #333333;
-     padding: 3px 10px 0px 10px;
-   }
-   div#wrap {
-     margin-top: 50px;
-   }
-  </style>
-</head>
-
-<br><br><br><br><br><br><br><br><br><br><br>
-  <div class="container">
-    <div class="band">QR-Code Undetected.</div>
-    <div class="box">
-   <center> <img src="./img/logosedco.svg" width="100" height="100"> </center>
-      <p class="text-center font-bold">Reason: NO QR Detected</p>
-      <hr class="my-4">
-      <p class="text-center">Please Scan The QR or Try again</p>
-      <p class="text-center">Please contact MIS Department for assistance.</p>
-    </div>
-    <div class="band">SEDCO x MIS</div>
-  </div>
-</body>
-</html>
-
-
-
-HTML;
-
-    // Close the prepared statement
-    $stmt->close();
-    // Close the database connection
-    $conn->close();
-    exit();
+} catch (Exception $e) {
+    // Log error and show user-friendly message
+    error_log("Database Error: " . $e->getMessage());
+    die("We're experiencing technical difficulties. Please try again later.");
 }
 ?>
-
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEDCO - <?php echo $fullName; ?></title>
-  
+    <title><?= $userFound ? $profile->getValue('full_name') . ' - SEDCO Staff Directory' : 'SEDCO Staff Directory' ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body class="background_clean layout_1">
-    <style>
-        .profileImage .faceBox.halfUp {
-            margin-top: calc(var(--profileImageSize) / 2 * -1 - 12px);
-        }
-    </style>
-    
-    <div id="Banner" class="w-100 p-2 d-flex align-items-center justify-content-center">
-        <a rel="nofollow" class="poweredBy" href="https://www.sedco.com.my/" target="_blank"> Powered By Perbadanan Pembangunan Ekonomi Sabah x MIS Team</a>
-    </div>
-    
-    <div class="layoutContainer shadowWithRadiusAll container-fluid g-0 profileImage">
-        <div class="row g-0">
-            <div class="col-sm">
-                <div class="cover-image">
-                    <div class="coverBox">
-                        <img id="cE_mainImage" class="shadowWithRadiusTop" src="./img/bg.jpg" sizes="(min-width: 1000px) 800px, 100vw">
-                    </div>
-                    <svg class="shapeBottom" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <!-- Your SVG paths here -->
-                    </svg>
-                    <div class="faceBox halfUp border-0">
-					<img id="cE_smallImage" class="face" src="<?php echo $imageUrl; ?>" >
-                    </div>
-                </div>
-            </div>
-            <div class="titlesBlock">
-                <div id="cE_title1" class="col-12 mt-3 g-5">
-                    <h1 class="h1 text-center cp-text"><?php echo $fullName; ?></h1>
-                </div>
-                <div id="cE_title2" class="col-12 mt-0 g-5">
-                    <h2 class="h4 text-center cp-text"><?php echo $jobTitle; ?></h2>
-                </div>
-                <div id="cE_title2" class="col-12 mt-0 g-5">
-                    <h2 class="h5 text-center cp-text"><?php echo $department; ?></h2>
-                </div>
-            </div>
-            <div class="col-12 mt-4">
-                <div class="container-fluid g-0">
-                    <div id="cardPages" class="g-0 quickButtons circle" data-amout="8">
-					<div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="tel:<?php echo $phone; ?>" data-type="phone">
-                                <img src=./img/phone.png style="width:60px;height:auto">
-                                <div class="title">Phone</div>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="https://wa.me/<?php echo $phone; ?>" data-type="whatsapp">
-                                <img src=./img/whatsapp.png style="width:60px;height:auto" >
-                                <div class="title">WhatsApp</div>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="mailto:<?php echo $email; ?>" data-type="email">
-                                <img src=./img/mail.png style="width:60px;height:auto" >
-                                <div class="title">E-mail</div>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="tel:+6088266777" data-type="officephone">
-                                <img src=./img/officephone.png style="width:60px;height:auto" >
-                                <div class="title">Office Phone</div>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="https://www.sedco.com.my/" data-type="website">
-                                <img src=./img/web.png style="width:60px;height:auto" >
-                                <div class="title">Website<br>SEDCO</div>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="https://www.facebook.com/SEDCOsabah" data-type="phone">
-                                <img src=./img/facebook.png style="width:60px;height:auto" >
-                                <div class="title">Facebook <br>SEDCO </div>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a id="de761b227d6a9" class="button " href="https://ul.waze.com/ul?place=ChIJAU_xBpVpOzIRXwNcHDpnmEI&ll=5.97392040%2C116.06770880&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" data-type="location">
-                                <img src=./img/location1.png style="width:60px;height:auto" >
-                                <div class="title">SEDCO<br>Location</div>
-                            </a>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 text-center">
-                <p style="color: black;">&copy;  Perbadanan Pembangunan Ekonomi Sabah ( SEDCO ) <?php echo date("Y"); ?></p>
+<body class="min-h-screen">
+    <?php if (!$userFound): ?>
+    <!-- Error State -->
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="glass-effect rounded-lg shadow-xl max-w-md w-full p-6 text-center animate-fadeIn">
+            <img src="./img/logosedco.svg" alt="SEDCO Logo" class="mx-auto w-24 h-24 mb-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">QR Code Not Found</h1>
+            <p class="text-gray-600 mb-4">Please scan a valid SEDCO staff QR code to view the directory.</p>
+            <div class="border-t pt-4 mt-4">
+                <p class="text-sm text-gray-500">Need help? Contact MIS Department</p>
             </div>
         </div>
     </div>
+    <?php else: ?>
+    <!-- User Profile -->
+    <div class="max-w-2xl mx-auto p-4">
+        <!-- Header Banner -->
+        <div class="glass-effect fixed top-0 left-0 right-0 p-3 text-center shadow-sm">
+            <a href="https://www.sedco.com.my/" target="_blank" 
+               class="text-sm text-gray-600 hover:text-gray-800 transition">
+                Powered by Perbadanan Pembangunan Ekonomi Sabah × MIS Team
+            </a>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="glass-effect rounded-xl shadow-lg mt-16 overflow-hidden animate-fadeIn">
+            <!-- Cover Image -->
+            <div class="relative h-48 bg-gradient-to-r from-blue-500 to-purple-600">
+                <img src="./img/bg.png" alt="Cover" class="w-full h-full object-cover opacity-80">
+                <div class="gradient-overlay absolute inset-0"></div>
+                
+                <!-- Profile Image -->
+                <div class="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+                    <img src="<?= $profile->getValue('imageUrl') ?>" 
+                         alt="Profile" 
+                         class="w-32 h-32 rounded-full border-4 border-white shadow-lg">
+                </div>
+            </div>
+
+            <!-- Profile Info -->
+            <div class="pt-20 pb-8 px-6 text-center">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <?= $profile->getValue('full_name') ?>
+                </h1>
+                <p class="text-gray-600 mt-1"><?= $profile->getValue('job_title') ?></p>
+                <p class="text-gray-500 text-sm"><?= $profile->getValue('department') ?></p>
+            </div>
+
+            <!-- Contact Buttons -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-white/50">
+                <a href="tel:<?= $profile->getValue('phone') ?>" 
+                   class="flex flex-col items-center p-3 hover:bg-white/50 rounded-lg transition">
+                    <img src="./img/phone.png" alt="Phone" class="w-12 h-12 mb-2">
+                    <span class="text-sm text-gray-600">Phone</span>
+                </a>
+                
+                <a href="https://wa.me/<?= $profile->getValue('phone') ?>" 
+                   class="flex flex-col items-center p-3 hover:bg-white/50 rounded-lg transition">
+                    <img src="./img/whatsapp.png" alt="WhatsApp" class="w-12 h-12 mb-2">
+                    <span class="text-sm text-gray-600">WhatsApp</span>
+                </a>
+
+                <a href="mailto:<?= $profile->getValue('email') ?>" 
+                   class="flex flex-col items-center p-3 hover:bg-white/50 rounded-lg transition">
+                    <img src="./img/mail.png" alt="Email" class="w-12 h-12 mb-2">
+                    <span class="text-sm text-gray-600">Email</span>
+                </a>
+
+                <a href="tel:+6088266777" 
+                   class="flex flex-col items-center p-3 hover:bg-white/50 rounded-lg transition">
+                    <img src="./img/officephone.png" alt="Office" class="w-12 h-12 mb-2">
+                    <span class="text-sm text-gray-600">Office</span>
+                </a>
+            </div>
+
+            <!-- Additional Links -->
+            <div class="grid grid-cols-3 gap-4 p-6 border-t border-white/20">
+                <a href="https://www.sedco.com.my/" 
+                   class="flex flex-col items-center p-3 hover:bg-white/50 rounded-lg transition">
+                    <img src="./img/web.png" alt="Website" class="w-12 h-12 mb-2">
+                    <span class="text-sm text-gray-600">Website</span>
+                </a>
+
+                <a href="https://www.facebook.com/SEDCOsabah" 
+                   class="flex flex-col items-center p-3 hover:bg-white/50 rounded-lg transition">
+                    <img src="./img/facebook.png" alt="Facebook" class="w-12 h-12 mb-2">
+                    <span class="text-sm text-gray-600">Facebook</span>
+                </a>
+
+                <a href="https://ul.waze.com/ul?place=ChIJAU_xBpVpOzIRXwNcHDpnmEI&ll=5.97392040%2C116.06770880&navigate=yes" 
+                   class="flex flex-col items-center p-3 hover:bg-white/50 rounded-lg transition">
+                    <img src="./img/location1.png" alt="Location" class="w-12 h-12 mb-2">
+                    <span class="text-sm text-gray-600">Location</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-8 mb-4">
+            <p class="text-sm text-gray-600">
+                © <?= date('Y') ?> Perbadanan Pembangunan Ekonomi Sabah (SEDCO)
+            </p>
+        </footer>
+    </div>
+    <?php endif; ?>
 </body>
 </html>
